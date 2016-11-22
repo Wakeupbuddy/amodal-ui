@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load compress %}
+
+{% block content %}
+<form method="POST" action="." class="form-horizontal">
+  {% csrf_token %}
+    <fieldset>
+      <legend>Select Image ({{ chosen_user.username }})</legend>
+      {% if error %}
+      <p class="label-warning">You don't have assigned images yet. Please ask administrator</p><br/>
+      {% else %}
+      <p class="label-info">{{ chosen_user.username }} has {{ images|length }} images</p>
+      {% endif %}
+      <div class="control-group">
+        <label class="control-label" for="inputImages">Images</label>
+        <div class="controls">
+          <select id="inputImages" name="image">
+            {% for image in images %}
+              <option value="{{ image.pk }}">{{ image.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-primary">OK</button>
+          <a href="{% url 'random_image' user_pk=chosen_user.pk %}" class="btn">Give me One</a>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <a href="{% url 'select_task' user_pk=chosen_user.pk %}" class="btn">Back</a>
+        </div>
+      </div>
+    </fieldset>
+</form>
+{% endblock %}

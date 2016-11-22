@@ -1,0 +1,85 @@
+{% extends "mturk/mt_base_fixed.html" %}
+{% load humanize %}
+{% load compress %}
+
+{% block css %}{{ block.super }}
+<style>
+	canvas { border: 1px solid #969696; }
+	body { padding: 0 }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="mt-top-nohover">
+    {% if overview %}
+    <div id="mt-instructions">
+	    <span style="font-weight:normal">
+		    Overview for user: <strong>{{ username }}</strong>, status: <strong>{{ status}}</strong>, image: <strong>{{ image_name }}</strong>.
+	    </span>
+		<span class="pull-right">
+		    <a href="/statistic/" class="btn btn-primary">Back to statistic</a>
+		    <a href="/next_overview/{{ user_pk }}/" class="btn btn-primary" id="next-user-image">Next user image</a>
+		    <a href="/next_overview/random/" class="btn btn-primary">Random image</a>
+		    <button type="button" id='btn-reject' class="btn {% if status != "approved" %} btn-danger {%endif%}">Reject</button>
+		    <button type="button" id='btn-approve' class="btn {% if status != "approved" %} btn-success {%endif%}">Approve</button>
+		</span>
+	</div>
+    {% else %} 
+    <div id="mt-instructions">
+		<span>
+		        Carefully trace around regions that form a object. <span id="mt-num-shapes">If some part are ocluded, please complete the whole region.</span>
+		</span>
+		<span class="pull-right">
+	        <button type="button" id='btn-submit' class="btn btn-primary">Next</button>
+	        <button type="button" id='btn-save' class="btn btn-primary">Save</button>
+		    <button type="button" id='btn-finalize' class="btn btn-primary" disabled="disabled">Finalize</button>
+	        <a href="/logout" class="btn btn-primary">Logout</a>
+		</span>
+	</div>
+    {% endif %}
+	{% include "poly/poly_controls.html" %}
+</div>
+<div id="mt-container"></div>
+<div id="ordering">
+    Labels order (sorted by distance):
+    <ul id="sortable">
+    </ul>
+</div>
+{% endblock %}
+
+{% block modals %}
+	{% include "modal/modal_instructions.html" %}
+	{% include "modal/modal_shortcuts.html" %}
+	{% include "modal/modal_loading.html" %}
+	{% include "modal/modal_error.html" %}
+	{% include "modal/modal_areyousure.html" %}
+	{% include "modal/mt_modal_feedback.html" %}
+	{% include "modal/poly_modal_intersect.html" %}
+	{% include "modal/poly_modal_toosmall.html" %}
+{% endblock %}
+
+{% block scripts %}
+
+{% include "poly/poly_scripts.html" %}
+<script type="text/javascript">
+window.template_args = {
+	photo_url: '{{ content.url }}',
+	photo_id: {{ content.id }},
+	username: '{{ username }}',
+};
+{% if min_shapes %}window.min_shapes = {{ min_shapes }};{% endif %}
+{% if min_area %}window.min_area = {{ min_area }};{% endif %}
+{% if min_vertices %}window.min_vertices = {{ min_vertices }};{% endif %}
+window.overview = {{ overview }};
+{% if polygons %}window.template_args['polygon_data'] = {{ polygons }}{% endif %}
+{% if list_activetime %}window.template_args['list_activetime'] = {{ list_activetime }}{% endif %}
+{% if namelist %}window.template_args['namelist'] = {{ namelist|safe }};{% endif %}
+</script>
+
+{% compress js %}
+<script type="text/coffeescript" src="{{ STATIC_URL }}js/common/get_url_params.coffee"></script>
+<script type="text/coffeescript" src="{{ STATIC_URL }}js/mturk/mt_submit.coffee"></script>
+<script type="text/coffeescript" src="{{ STATIC_URL }}js/mturk/mt_segment_material.coffee"></script>
+{% endcompress %}
+
+{% endblock %}

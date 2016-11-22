@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load compress %}
+
+{% block content %}
+<form method="POST" action="." class="form-horizontal">
+	{% csrf_token %}
+  {% if next %}
+    <input type="hidden" name="next" value="{{ next }}" />
+  {% endif %}
+  	<fieldset>
+    	<legend>Login</legend>
+      {% if form.non_field_errors %}
+      <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {% for error in form.non_field_errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+      {% endif %}
+    	<div class="control-group {% if form.username.errors %}error{% endif %}">
+        <label class="control-label" for="username">Username</label>
+        <div class="controls">
+          <input type="text" id="username" name="username" placeholder="Username" />
+          {% if form.username.errors %}
+          <span class="help-block">{% for error in form.username.errors %}{{ error }}<br/>{% endfor %}</span>
+          {% endif %}
+        </div>
+      </div>
+      <div class="control-group {% if form.password.errors %}error{% endif %}">
+        <label class="control-label" for="password">Password</label>
+        <div class="controls">
+          <input type="password" id="password" name="password" placeholder="Password" />
+          {% if form.password.errors %}
+          <span class="help-block">{% for error in form.password.errors %}{{ error }}<br/>{% endfor %}</span>
+          {% endif %}
+        </div>
+      </div>
+    	<div class="control-group">
+    		<div class="controls">
+    			<button type="submit" class="btn">Login</button>
+    		</div>
+    	</div>
+  	</fieldset>
+</form>
+{% endblock %}

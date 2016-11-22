@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load compress %}
+
+{% block content %}
+<form method="POST" action="." class="form-horizontal">
+	{% csrf_token %}
+  	<fieldset>
+    	<legend>Segmentation-UI</legend>
+    	<div class="control-group {% if error %}error{% endif %}">
+    		<label class="control-label" for="inputUser">User</label>
+    		<div class="controls">
+    			<select id="inputUser" name="chosen_user">
+    				{% for user in users %}
+  						<option value="{{ user.pk }}">{{ user.username }}</option>
+  					{% endfor %}
+  				</select>
+          {% if error %}
+  				<span class="help-block">Please choose one of user</span>
+          {% endif %}
+  			</div>
+    	</div>
+    	<div class="control-group">
+    		<div class="controls">
+    			<button type="submit" class="btn">Submit</button>
+    		</div>
+    	</div>
+  	</fieldset>
+</form>
+{% endblock %}

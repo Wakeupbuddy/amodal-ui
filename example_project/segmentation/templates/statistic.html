@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Finished images overview</h1>
+<h4>By user:</h4>
+<form class="form-inline">
+    <label for="user-userSelect">User:</label>
+    <select class="form-control" id="user-userSelect">
+    </select>
+    
+    <label for="user-imageSelect">Image:</label>
+    <select class="form-control" id="user-imageSelect">
+    </select>
+    
+    <button class="btn btn-primary" id="user-checkResult">Check result</button>
+    
+</form>
+
+<h4>By image:</h4>
+<form class="form-inline">
+    <label for="image-imageSelect">Image:</label>
+    <select class="form-control" id="image-imageSelect">
+    </select>
+    
+    <label for="image-userSelect">User:</label>
+    <select class="form-control" id="image-userSelect">
+    </select>
+    
+    <button class="btn btn-primary" id="image-checkResult">Check result</button>
+    
+</form>
+
+<hr>
+<h1>Statistic</h1>
+
+<form class="form-inline">
+    <label for="startDate">From:</label>
+    <input type="text" class="form-control datepicker" id="startDate">
+    <label for="endDate">To:</label>
+    <input type="text" class="form-control datepicker" id="endDate">
+</form>
+
+<table class="table" id='statistic-table'>
+    <thead>
+        <tr>
+            <td>User</td>
+            <td># of in progress images</td>
+            <td># of completed images</td>
+            <td>total # of polygons</td>
+            <td>total # of points</td>
+            <td>total active time (minutes)</td>
+            <td>total annotation time (minutes)</td>
+            <td>average # of points/polygon</td>
+            <td>average active time/image (minutes)</td>
+            <td>average annotation time/image (minutes)</td>
+        </tr>
+    </thead>
+    <tbody id='tableBody'>
+        <!--HERE WILL BE DATA FROM JSON-->
+    </tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    window.images = {{ images|safe }};
+</script>
+<link href="{{ STATIC_URL }}css/jquery.datetimepicker.css" rel="stylesheet" type="text/css"/>
+<link href="{{ STATIC_URL }}css/tablesorter.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/lib/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/statistic/statistic.js"></script>
+{% endblock %}

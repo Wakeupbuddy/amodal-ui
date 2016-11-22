@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load compress %}
+
+{% block content %}
+<legend>Select Task ({{ chosen_user.username }})</legend>
+<a href="{% url 'user_images' user_pk=chosen_user.pk %}" class="btn btn-primary btn-large">Label Object Task</a><br/><br/>
+<a href="#" class="btn btn-large">Task B</a><br/><br/>
+<a href="#" class="btn btn-large">Task c</a>
+<hr/>
+<a href="{% url 'logout' %}" class="btn">Logout</a>
+{% endblock %}

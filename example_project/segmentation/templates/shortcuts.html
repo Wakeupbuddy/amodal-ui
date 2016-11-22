@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load compress %}
+
+{% block content %}
+<link href="{{ STATIC_URL }}css/keys.css" rel="stylesheet" type="text/css"/>
+<div>
+    <h3>General shortcuts</h3>
+        <p>
+            <img src="{{ STATIC_URL }}img/shortcuts/arrows.gif" width="31" height="20"></img>
+            - move image around
+        </p>
+        <p>
+            <img src="{{ STATIC_URL }}img/shortcuts/scroll.png" width="20" height="20"></img>
+            - zoom with mouse scroll
+        </p>
+        <p><kbd>Z</kbd> - undo</p>
+        <p><kbd>X</kbd> - redo </p>
+        <p><kbd>F</kbd> - toggle polygon fill</p>
+        <p><kbd>A</kbd> - enter adjust mode</p>
+        <p><kbd>D</kbd> - enter draw mode</p>
+        <p><kbd>ESC</kbd> - deselect any polygon and reset zoom</p>
+    <h3>Draw mode shortcuts:</h3>
+        <p>
+            <img src="{{ STATIC_URL }}img/shortcuts/left.png" width="20" height="20"></img>
+            - add a new point
+        </p>
+        <p>
+            <img src="{{ STATIC_URL }}img/shortcuts/right.jpg" width="20" height="20"></img>
+            - close polygon
+        </p>
+        <p><kbd>Q</kbd> - snap to an existing line/boundary</p>
+        <p><kbd>W</kbd> - snap to an existing point/corner</p>
+		<p><kbd>C</kbd> - add a new point (same as left click)</p>
+	<h3>Adjust mode shortcuts:</h3>
+	    <p>
+            <img src="{{ STATIC_URL }}img/shortcuts/left.png" width="20" height="20"></img>
+            - select existing polygon or point
+        </p>
+        <p>
+            <img src="{{ STATIC_URL }}img/shortcuts/right.jpg" width="20" height="20"></img>
+            - add new point to existing polygon
+        </p>
+        <p><kbd>A</kbd> - select next polygon to adjust</p>
+        <p><kbd>S</kbd> - zoom in on selected polygon</p>
+		<p><kbd>DELETE</kbd> or <kbd>BACKSPACE</kbd> - delete selected polygon (if no point under cursor)</p>
+		<p><kbd>DELETE</kbd> or <kbd>BACKSPACE</kbd> - delete selected point (if point under cursor)</p>
+	</div>
+    
+{% endblock %}

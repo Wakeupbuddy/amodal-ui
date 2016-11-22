@@ -1,0 +1,41 @@
+{% comment %}
+	Controls for polygon segmentation
+{% endcomment %}
+
+<div id="ui-controls" class="ui-controls-top">
+	<span class="btn-group" data-toggle="buttons-radio">
+		<button id='btn-draw' type="button" class="btn" disabled="disabled">
+			<i class="icon-pencil"></i> Draw (D)</button>
+		<button id='btn-edit' type="button" class="btn" disabled="disabled">
+			<i class="icon-move"></i> Adjust (A)</button>
+		<!--<select id="polygons_dropdown" style="margin-top:10px; margin-left:6px; width:150px;">-->
+		<!--</select>-->
+		<!--<input type="text" id="polygon_name" readonly="readonly" placeholder="Polygon name..." style="margin-top:10px; margin-left:6px;"></input>-->
+	</span>
+	<span class="btn-group">
+		<button id='btn-undo' type="button" disabled="disabled" class="btn">
+			<i class="icon-circle-arrow-left"></i> Undo (Z)</button>
+		<button id='btn-redo' type="button" disabled="disabled" class="btn">
+			<i class="icon-circle-arrow-right"></i> Redo (X)</button>
+		<button id='btn-delete' type="button" disabled="disabled" class="btn">
+			<i class="icon-remove"></i> Delete (Del)</button>
+	</span>
+	<span class="btn-group">
+		<button id='btn-show-annotation' type="button" class="btn">
+			</i> Fill (F)</button>
+	</span>
+
+{% if extra_ui_controls %}
+	{% include extra_ui_controls %}
+{% endif %}
+
+{% if instructions %}
+	<span class="pull-right">
+	    <a href="javascript:window.open('/videos','Videos','width=800,height=800')" role="button" class="btn btn-warning" >Videos</a>
+	    <a href="javascript:window.open('/instructions','Instructions','width=800,height=800')" role="button" class="btn btn-warning" >Instructions</a>
+	    <a href="javascript:window.open('/shortcuts','Instructions','width=550,height=800')" role="button" class="btn btn-warning" >Shortcuts</a>
+		<!--<a href="#modal-instructions" role="button" class="btn btn-warning" data-toggle="modal">Instructions</a>-->
+		<!--<a href="#modal-shortcuts" role="button" class="btn btn-warning" data-toggle="modal">Shortcuts</a>-->
+	</span>
+{% endif %}
+</div>
